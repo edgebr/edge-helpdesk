@@ -1,0 +1,16 @@
+kind: pipeline
+type: kubernetes
+name: deploy-staging-pipeline
+
+steps:
+- name: build-image
+  image: plugins/ecr
+  settings:
+    repo: edge-helpdesk
+    registry: 716814888065.dkr.ecr.us-east-2.amazonaws.com
+    region: us-east-2
+    dockerfile: standalone/Dockerfile
+    context: .
+    tags:
+      - latest
+      - ${DRONE_BUILD_NUMBER}
